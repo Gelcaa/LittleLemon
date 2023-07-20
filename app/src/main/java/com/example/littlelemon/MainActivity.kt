@@ -10,6 +10,10 @@ import androidx.compose.material.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.navigation.NavController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
 import com.example.littlelemon.ui.theme.LittleLemonTheme
 
 class MainActivity : ComponentActivity() {
@@ -23,6 +27,22 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@Composable
+fun Navigation(){
+    val navController = rememberNavController()
+    NavHost(navController = navController, startDestination = Home.route ){
+
+        composable(Home.route) {
+            HomeScreen(navController = navController)
+        }
+
+        composable(Menu.route){
+            MenuListScreen()
+        }
+    }
+
+}
+
 @Preview(showBackground = true)
 @Composable
 private fun AppScreen() {
@@ -34,7 +54,8 @@ private fun AppScreen() {
                 .fillMaxSize()
                 .padding(it)
         ) {
-
+            Navigation()
         }
     }
 }
+
